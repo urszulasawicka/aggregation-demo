@@ -84,3 +84,38 @@ exports.przecenaubrania = function(req, res) {
 		}
 	});
 };
+
+m = function() {
+ 	this.name.match(/[A-Z]?[a-z]+/g).forEach(function(word) {
+    	emit(word, 1);
+  	});
+};
+
+r = function(old, actual) { 
+    var count = 0; 
+    for (index in actual) {  
+        count += actual[index]; 
+    } 
+    return count; 
+}; 
+
+var command = { 
+    mapreduce: "vend", query: { name : { $ne : "unknown" }},
+    map: m.toString(), reduce: r.toString(), 
+    sort: { name : 1}, out: "counted" 
+};
+
+exports.mapreduce = function(req, res) {
+	db.db.executeDbCommand(command, function(err, dbres) {
+        console.log('Map reduce: ');
+        console.log(dbres);
+	});
+	
+	db.db.collection('counted', function(err, collection) {
+        collection.find({value : { $gte : 2 }}).sort({'value': 1})
+        	.limit(100).toArray(function(err, vends) { 
+            res.send(JSON.stringify(vends));
+        });
+
+    });
+};

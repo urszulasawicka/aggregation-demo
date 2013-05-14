@@ -11,7 +11,7 @@ var express = require('express')
 
 mongoose.connect('mongodb://localhost/nosql');
 
-var db = mongoose.connection;
+db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
     console.log("mongoDb works!!");
@@ -47,6 +47,7 @@ app.get('/przecenaubrania', routes.przecenaubrania);
 app.get('/kosztyprzeceny', routes.kosztyprzeceny);
 app.get('/strata', routes.strata);
 app.get('/dostawcymarki', routes.dostawcymarki);
+app.get('/mapreduce', routes.mapreduce);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
