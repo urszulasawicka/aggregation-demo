@@ -41,6 +41,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/wykres1', routes.wykres1);
+app.get('/wykres2', routes.wykres2);
 app.get('/users', user.list);
 app.get('/przeceny', routes.przeceny);
 app.get('/przecenaubrania', routes.przecenaubrania);

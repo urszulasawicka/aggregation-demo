@@ -2,7 +2,17 @@ var Product = require("../model/product").Product;
 
 exports.index = function(req, res) {
 	res.render('index', {
-		title : 'Express'
+		title : 'Wykresy'
+	});
+};
+exports.wykres1 = function(req, res) {
+	res.render('wykres1', {
+		title : 'Wykresy'
+	});
+};
+exports.wykres2 = function(req, res) {
+	res.render('wykres2', {
+		title : 'Wykresy'
 	});
 };
 exports.dostawcymarki = function(req, res) {
@@ -110,10 +120,10 @@ exports.mapreduce = function(req, res) {
         console.log('Map reduce: ');
         console.log(dbres);
 	});
-	
+
 	db.db.collection('counted', function(err, collection) {
         collection.find({value : { $gte : 2 }}).sort({'value': 1})
-        	.limit(100).toArray(function(err, vends) { 
+         .limit(100).toArray(function(err, vends) {
             res.send(JSON.stringify(vends));
         });
 
